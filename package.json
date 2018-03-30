@@ -11,6 +11,8 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.69.0",
     "nodemon": "^1.17.2"
   },
   "engines": {
@@ -22,7 +24,9 @@
     "build": "babel src -d build",
     "start": "node build/index.js",
     "clean": "rm -rf build",
-    "heroku-postbuild": "yarn run build"
+    "heroku-postbuild": "yarn run build",
+    "prettier": "prettier --write \"src/**/*.js\"",
+    "flow": "flow"
   },
   "prettier": {
     "parser": "babylon",
@@ -32,7 +36,8 @@
   },
   "babel": {
     "presets": [
-      "env"
+      "env",
+      "flow"
     ]
   }
 }
