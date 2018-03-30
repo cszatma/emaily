@@ -31,7 +31,7 @@
     "flow": "flow"
   },
   "prettier": {
-    "parser": "babylon",
+    "parser": "flow",
     "trailingComma": "all",
     "singleQuote": true,
     "tabWidth": 4
