@@ -3,9 +3,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-import './services/passport';
 import authRoutes from './routes/authRoutes';
 import keys from './config/keys';
+import './services/passport';
+import './models/User';
 
 mongoose.connect(keys.mongoURI);
 
