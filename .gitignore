@@ -141,3 +141,4 @@ fabric.properties
 ### Custom
 # Ignore build directory
 build/
+keys.js
