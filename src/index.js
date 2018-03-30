@@ -2,10 +2,11 @@
 
 import express from 'express';
 
+import './services/passport';
+import authRoutes from './routes/authRoutes';
+
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send({ hi: 'there' });
-});
+authRoutes(app);
 
 app.listen(process.env.PORT || 5000);
