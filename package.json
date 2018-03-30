@@ -1,0 +1,10 @@
+{
+  "name": "emaily",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "cszatma <cs@christopherszatmary.com>",
+  "private": true,
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
