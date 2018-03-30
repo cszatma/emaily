@@ -1,6 +1,9 @@
-import passport from 'passport';
+// @flow
 
-export default app => {
+import passport from 'passport';
+import type { $Application } from 'express';
+
+export default (app: $Application) => {
     app.get(
         '/auth/google',
         passport.authenticate('google', {
