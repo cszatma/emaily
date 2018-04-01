@@ -5,17 +5,18 @@ import PassportGoogleStrategy from 'passport-google-oauth20';
 import mongoose from 'mongoose';
 
 import keys from '../config/keys';
+import type { UserModel, DoneCallback } from '../utils/types';
 
 const GoogleStrategy = PassportGoogleStrategy.Strategy;
 const User = mongoose.model('users');
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
+passport.serializeUser((user: UserModel, done: DoneCallback) =>
+    done(null, user.id),
+);
 
-passport.deserializeUser((id, done) => {
-    User.findById(id).then(user => done(null, user));
-});
+passport.deserializeUser((id: string, done: DoneCallback) =>
+    User.findById(id).then(user => done(null, user)),
+);
 
 passport.use(
     new GoogleStrategy(
@@ -28,7 +29,7 @@ passport.use(
             accessToken: string,
             refreshToken: string,
             profile: { id: string },
-            done: (?Error, any) => any,
+            done: DoneCallback,
         ) => {
             User.findOne({ googleId: profile.id })
                 .then(existingUser => {
