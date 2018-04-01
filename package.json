@@ -15,6 +15,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
+    "concurrently": "^3.5.1",
     "flow-bin": "^0.69.0",
     "nodemon": "^1.17.2",
     "prettier": "^1.11.1"
@@ -24,7 +25,9 @@
     "yarn": "1.5.1"
   },
   "scripts": {
-    "start-dev": "nodemon src/index.js --exec babel-node",
+    "start-server": "nodemon src/index.js --exec babel-node",
+    "start-client": "yarn --cwd client run start",
+    "start-dev": "concurrently \"yarn start-server\" \"yarn start-client\"",
     "build": "babel src -d build",
     "start": "node build/index.js",
     "clean": "rm -rf build",
