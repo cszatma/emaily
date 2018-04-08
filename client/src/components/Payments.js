@@ -9,7 +9,7 @@ import type { StripeToken } from 'redux-extensions';
 import type { ThunkAction } from 'actions';
 
 type Props = {
-    handleToken: (token: StripeToken) => ThunkAction
+    handleToken: (token: StripeToken) => ThunkAction,
 };
 
 export class Payments extends Component<Props> {
