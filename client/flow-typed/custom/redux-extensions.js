@@ -4,6 +4,7 @@ declare module 'redux-extensions' {
     declare export type User = {
         +_id: string,
         +googleId: string,
+        +credits: number,
     };
 
     declare export type StripeToken = {

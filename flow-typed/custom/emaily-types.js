@@ -6,6 +6,8 @@ declare module 'emaily-types' {
     declare export type UserModel = {
         id: string,
         googleId: string,
+        credits: number,
+        save: () => UserModel,
     };
 
     declare export type StripeToken = {
@@ -25,7 +27,7 @@ declare module 'emaily-types' {
         logout: void => void,
     };
 
-    declare export type billing$Request = $Request & {
+    declare export type billing$Request = session$Request & {
         body: StripeToken,
     };
 
