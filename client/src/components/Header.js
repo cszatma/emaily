@@ -10,7 +10,7 @@ type Props = {
     auth: AuthState,
 };
 
-class Header extends Component<Props, {}> {
+export class Header extends Component<Props, {}> {
     renderContent() {
         switch (this.props.auth) {
             case null:
