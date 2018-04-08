@@ -3,9 +3,9 @@
 import passport from 'passport';
 import PassportGoogleStrategy from 'passport-google-oauth20';
 import mongoose from 'mongoose';
+import type { UserModel, DoneCallback } from 'emaily-types';
 
 import keys from '../config/keys';
-import type { UserModel, DoneCallback } from '../utils/types';
 
 const GoogleStrategy = PassportGoogleStrategy.Strategy;
 const User = mongoose.model('users');

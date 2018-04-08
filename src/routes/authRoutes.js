@@ -2,7 +2,7 @@
 
 import passport from 'passport';
 import type { $Application, $Response, $Request } from 'express';
-import type { session$Request } from '../utils/types';
+import type { session$Request } from 'emaily-types';
 
 export default (app: $Application) => {
     app.get(
