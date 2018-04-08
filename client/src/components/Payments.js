@@ -2,17 +2,24 @@
 
 import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
+import { connect } from 'react-redux';
 
-type Props = {};
+import * as actions from '../actions';
+import type { StripeToken } from 'redux-extensions';
+import type { ThunkAction } from 'actions';
 
-export default class Payments extends Component<Props> {
+type Props = {
+    handleToken: (token: StripeToken) => ThunkAction
+};
+
+export class Payments extends Component<Props> {
     render() {
         return (
             <StripeCheckout
                 name="Emaily"
                 description="$5 for 5 email credits"
                 amount={500} // $5 USD
-                token={token => console.log(token)}
+                token={token => this.props.handleToken(token)}
                 stripeKey={process.env.REACT_APP_STRIPE_KEY}
             >
                 <button className="btn">Add Credits</button>
@@ -20,3 +27,5 @@ export default class Payments extends Component<Props> {
         );
     }
 }
+
+export default connect(null, actions)(Payments);
