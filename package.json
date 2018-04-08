@@ -29,7 +29,7 @@
   "scripts": {
     "start-server": "nodemon src/index.js --exec babel-node",
     "start-client": "yarn --cwd client run start",
-    "start-dev": "concurrently \"yarn start-server\" \"yarn start-client\"",
+    "start-dev": "concurrently \"yarn start-server\" \"yarn start-client\" --names \"Server,Client\" -c \"red,blue\"",
     "build": "babel src -d build",
     "start": "node build/index.js",
     "clean": "rm -rf build",
