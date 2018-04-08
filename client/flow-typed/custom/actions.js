@@ -3,7 +3,7 @@
 declare module 'actions' {
     import type { User } from 'redux-extensions';
 
-    declare type FetchUserAction = {
+    declare export type FetchUserAction = {
         +type: 'fetch_user',
         payload: User,
     };
