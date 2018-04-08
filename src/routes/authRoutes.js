@@ -1,7 +1,7 @@
 // @flow
 
 import passport from 'passport';
-import type { $Application, $Response } from 'express';
+import type { $Application, $Response, $Request } from 'express';
 import type { session$Request } from '../utils/types';
 
 export default (app: $Application) => {
@@ -12,11 +12,17 @@ export default (app: $Application) => {
         }),
     );
 
-    app.get('/auth/google/callback', passport.authenticate('google'));
+    app.get(
+        '/auth/google/callback',
+        passport.authenticate('google'),
+        (req: $Request, res: $Response) => {
+            res.redirect('/surveys');
+        },
+    );
 
     app.get('/api/logout', (req: session$Request, res: $Response) => {
         req.logout();
-        res.send(req.user);
+        res.redirect('/');
     });
 
     app.get('/api/current_user', (req: session$Request, res: $Response) => {
