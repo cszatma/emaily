@@ -12,7 +12,6 @@ type Props = {
 
 class Header extends Component<Props, {}> {
     renderContent() {
-        console.log(this.props.auth);
         switch (this.props.auth) {
             case null:
                 return;
