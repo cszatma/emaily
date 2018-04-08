@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import type { AuthState, ReduxState } from 'redux-extensions';
+import Payments from './Payments';
 
 type Props = {
     auth: AuthState,
@@ -22,11 +23,14 @@ export class Header extends Component<Props, {}> {
                     </li>
                 );
             default:
-                return (
-                    <li>
+                return [
+                    <li key="1">
+                        <Payments />
+                    </li>,
+                    <li key="2">
                         <a href="/api/logout">Logout</a>
-                    </li>
-                );
+                    </li>,
+                ];
         }
     }
 
