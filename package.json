@@ -19,8 +19,11 @@
     "babel-preset-flow": "^6.23.0",
     "concurrently": "^3.5.1",
     "flow-bin": "^0.69.0",
+    "jest": "^22.4.3",
     "nodemon": "^1.17.2",
-    "prettier": "^1.11.1"
+    "prettier": "^1.11.1",
+    "superagent": "^3.8.2",
+    "supertest": "^3.0.0"
   },
   "engines": {
     "node": "8.11.1",
@@ -36,7 +39,9 @@
     "heroku-postbuild": "yarn run build",
     "prettier": "prettier --write \"src/**/*.js\"",
     "flow": "flow",
-    "flow-typed-install": "flow-typed install -s -i dev"
+    "flow-typed-install": "flow-typed install -s -i dev",
+    "test": "jest --watch",
+    "test-client": "yarn --cwd client run test"
   },
   "prettier": {
     "parser": "flow",
@@ -56,5 +61,8 @@
       ],
       "flow"
     ]
+  },
+  "jest": {
+    "testPathIgnorePatterns": ["<rootDir>/client/"]
   }
 }
