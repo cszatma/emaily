@@ -18,6 +18,7 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
+// Setup global middlewares that all routes will use
 app.use(bodyParser.json());
 app.use(
     cookieSession({
@@ -29,6 +30,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Setup route handlers
 authRoutes(app);
 billingRoutes(app);
 
