@@ -1,3 +1,5 @@
+// @flow
+
 import passport from 'passport/lib/index';
 import bodyParser from 'body-parser';
 import express from 'express';

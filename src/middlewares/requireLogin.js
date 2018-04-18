@@ -8,7 +8,7 @@ import type { session$Request } from 'emaily-types';
  */
 export default (req: session$Request, res: $Response, next: NextFunction) => {
     if (!req.user) {
-        return res.status(401).send({ error: 'You must be logged in!'});
+        return res.status(401).send({ error: 'You must be logged in!' });
     }
 
     next();
