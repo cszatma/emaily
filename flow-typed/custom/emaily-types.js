@@ -31,5 +31,9 @@ declare module 'emaily-types' {
         body: StripeToken,
     };
 
-    declare export type DoneCallback = (?Error, any) => any;
+    declare export type DoneCallback = (
+        error: ?Error,
+        user: any,
+        info: any,
+    ) => any;
 }
