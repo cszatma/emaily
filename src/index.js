@@ -1,7 +1,6 @@
 // @flow
 
 import mongoose from 'mongoose';
-import chalk from 'chalk';
 
 import keys from './config/keys';
 import './models/User';
@@ -13,5 +12,5 @@ mongoose.connect(keys.mongoURI);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    dev.log(chalk.green(`Server successfully started on port ${PORT}\n`));
+    dev.log.green(`Server successfully started on port ${PORT}\n`);
 });
