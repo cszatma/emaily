@@ -30,6 +30,7 @@
     "lint-staged": "^7.0.4",
     "mockgoose": "^7.3.5",
     "nodemon": "^1.17.2",
+    "npm-run-all": "^4.1.2",
     "passport-mock-strategy": "^1.0.0",
     "prettier": "^1.11.1",
     "superagent": "^3.8.2",
@@ -40,21 +41,26 @@
     "yarn": "1.5.1"
   },
   "scripts": {
-    "build": "babel src -d build --ignore __tests__",
-    "clean": "rm -rf build",
-    "clean-build": "yarn run clean && yarn run build",
+    "build:server": "babel src -d build --ignore __tests__",
+    "build:clean": "rm -rf build",
+    "build": "npm-run-all build:*",
     "eslint": "eslint --fix \"src/**/*.js\"",
     "flow": "flow",
     "flow-typed-install": "flow-typed install -s -i dev",
     "heroku-postbuild": "yarn run clean-build",
-    "precommit": "lint-staged",
-    "prettier": "prettier --write \"src/**/*.js\"",
+    "precommit:server": "lint-staged",
+    "precommit:client": "yarn --cwd client run precommit",
+    "precommit": "npm-run-all precommit:*",
+    "prettier:server": "prettier --write \"src/**/*.js\"",
+    "prettier:client": "yarn --cwd client run prettier",
+    "prettier": "npm-run-all prettier:*",
     "start": "node build/index.js",
     "start-server": "nodemon src/index.js --exec babel-node",
     "start-client": "yarn --cwd client run start",
     "start-dev": "concurrently \"yarn start-server\" \"yarn start-client\" --names \"Server,Client\" -c \"red,blue\"",
-    "test": "jest --watch",
-    "test-client": "yarn --cwd client run test"
+    "test:server": "jest --watch",
+    "test:client": "yarn --cwd client run test",
+    "test": "npm-run-all test:*"
   },
   "prettier": {
     "parser": "flow",
@@ -81,9 +87,14 @@
     ]
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
+    "linters": {
+      "*.js": [
+        "eslint --fix",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "client/"
     ]
   }
 }
