@@ -4,6 +4,7 @@ import passport from 'passport/lib/index';
 import bodyParser from 'body-parser';
 import express from 'express';
 import cookieSession from 'cookie-session';
+import type { $Request, $Response } from 'express';
 
 import keys from './config/keys';
 import authRoutes from './routes/authRoutes';
@@ -26,5 +27,16 @@ app.use(passport.session());
 // Setup route handlers
 authRoutes(app);
 billingRoutes(app);
+
+if (process.env.NODE_ENV === 'production') {
+    // Express will server up production assets from the client
+    app.use(express.static('client/build'));
+
+    // Express will serve up the index.html file if it doesn't recognize the route
+    const path = require('path');
+    app.get('*', (req: $Request, res: $Response) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
 
 export default app;
