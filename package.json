@@ -49,6 +49,7 @@
     "clean:server": "rm -rf build",
     "clean:client": "cd client && rm -rf build",
     "clean": "npm-run-all clean:*",
+    "deploy": "git push heroku master",
     "eslint": "eslint --fix \"src/**/*.js\"",
     "flow": "flow",
     "flow-typed-install": "flow-typed install -s -i dev",
