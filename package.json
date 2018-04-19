@@ -44,7 +44,7 @@
   "scripts": {
     "build:server": "babel src -d build --ignore __tests__",
     "build:client": "yarn --cwd client run build",
-    "build": "npm-run-all clean:* build:*",
+    "build": "npm-run-all -s clean:* build:* move-client",
     "clean:server": "rm -rf build",
     "clean:client": "cd client && rm -rf build",
     "clean": "npm-run-all clean:*",
@@ -53,6 +53,7 @@
     "flow-typed-install": "flow-typed install -s -i dev",
     "heroku-postbuild": "npm-run-all -s build \"install:client --production\"",
     "install:client": "yarn --cwd client install",
+    "move-client": "mv client/build build/client",
     "postinstall": "yarn run install:client",
     "precommit:server": "lint-staged",
     "precommit:client": "yarn --cwd client run precommit",
