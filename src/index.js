@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 
 import keys from './config/keys';
 import './models/User';
+import './models/Survey';
 import './services/passport';
 import dev from './utils/dev-utils';
 import app from './app';
