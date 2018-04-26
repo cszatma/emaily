@@ -11,7 +11,7 @@ module.exports = {
     ],
     "rules": {
         "indent": [
-            "error",
+            "off",
             4
         ],
         "linebreak-style": [
@@ -30,7 +30,8 @@ module.exports = {
         "flowtype/delimiter-dangle": [
             "error",
             "always-multiline"
-        ]
+        ],
+        "camelcase": ["error"]
     },
     "plugins": [
         "flowtype"
