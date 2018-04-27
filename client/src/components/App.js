@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import '../styles/App.scss';
 import Header from './Header';
 import Landing from './Landing';
+import Dashboard from './Dashboard';
 import * as actions from '../actions';
 import type { ThunkAction } from 'actions';
 
@@ -14,7 +15,6 @@ type Props = {
     fetchUser: () => ThunkAction,
 };
 
-const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
 
 export class App extends Component<Props, {}> {
