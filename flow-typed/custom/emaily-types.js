@@ -10,6 +10,23 @@ declare module 'emaily-types' {
         save: () => UserModel,
     };
 
+    declare export type SurveyModel = {
+        id: string,
+        title: string,
+        body: string,
+        subject: string,
+        yes: number,
+        no: number,
+        _user: any,
+        dateSent: Date,
+        lastResponded: Date,
+    };
+
+    declare export type RecipientModel = {
+        email: string,
+        responded: boolean,
+    };
+
     declare export type StripeToken = {
         card: Object,
         client_ip: string,
@@ -29,6 +46,15 @@ declare module 'emaily-types' {
 
     declare export type billing$Request = session$Request & {
         body: StripeToken,
+    };
+
+    declare export type survey$Request = session$Request & {
+        body: {
+            title: string,
+            subject: string,
+            body: string,
+            recipients: string,
+        },
     };
 
     declare export type DoneCallback = (
