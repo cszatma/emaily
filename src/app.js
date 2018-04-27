@@ -9,6 +9,7 @@ import type { $Request, $Response } from 'express';
 import keys from './config/keys';
 import authRoutes from './routes/authRoutes';
 import billingRoutes from './routes/billingRoutes';
+import surveyRoutes from './routes/surveyRoutes';
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(passport.session());
 // Setup route handlers
 authRoutes(app);
 billingRoutes(app);
+surveyRoutes(app);
 
 if (process.env.NODE_ENV === 'production') {
     const path = require('path');
