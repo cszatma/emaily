@@ -8,8 +8,10 @@ import {
 
 import app from '../app';
 
+const user = { ...mockUser, credits: 5 };
+
 setupSerializeAndDeserialize(passport);
-passport.use(new MockStrategy());
+passport.use(new MockStrategy({ user }));
 
 app.get('/auth/mock', passport.authenticate('mock'), (req, res) => {
     res.send({ status: 'ok' });
