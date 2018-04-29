@@ -18,7 +18,7 @@ export default class Mailer extends helper.Mail {
 
         this.sgApi = sendgrid(keys.sendGridKey);
         // eslint-disable-next-line
-        this.from_email = new helper.Email('no-reply@email.com');
+        this.from_email = new helper.Email('no-reply@emaily.com');
         this.subject = subject;
         this.body = new helper.Content('text/html', content);
         this.recipients = this.formatAddresses(recipients);
