@@ -8,14 +8,13 @@ import '../styles/App.scss';
 import Header from './Header';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
+import SurveyNew from './surveys/SurveyNew';
 import * as actions from '../actions';
 import type { ThunkAction } from 'actions';
 
 type Props = {
     fetchUser: () => ThunkAction,
 };
-
-const SurveyNew = () => <h2>SurveyNew</h2>;
 
 export class App extends Component<Props, {}> {
     componentDidMount() {
@@ -24,16 +23,14 @@ export class App extends Component<Props, {}> {
 
     render() {
         return (
-            <div className="container">
-                <BrowserRouter>
-                    <div>
-                        <Header />
-                        <Route exact path="/" component={Landing} />
-                        <Route exact path="/surveys" component={Dashboard} />
-                        <Route path="/surveys/new" component={SurveyNew} />
-                    </div>
-                </BrowserRouter>
-            </div>
+            <BrowserRouter>
+                <div className="container">
+                    <Header />
+                    <Route exact path="/" component={Landing} />
+                    <Route exact path="/surveys" component={Dashboard} />
+                    <Route path="/surveys/new" component={SurveyNew} />
+                </div>
+            </BrowserRouter>
         );
     }
 }
