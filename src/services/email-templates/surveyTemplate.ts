@@ -1,8 +1,5 @@
-// @flow
-
-import type { SurveyModel } from 'emaily-types';
-
 import keys from '../../config/keys';
+import { SurveyModel } from '../../models/Survey';
 
 export default (survey: SurveyModel): string => {
     return `

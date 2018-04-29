@@ -1,29 +1,25 @@
-// @flow
-
-import passport from 'passport';
-import PassportGoogleStrategy from 'passport-google-oauth20';
 import mongoose from 'mongoose';
-import type { UserModel, DoneCallback } from 'emaily-types';
+import passport from 'passport';
+import PassportGoogleStrategy, { DoneCallback } from 'passport-google-oauth20';
+import { UserModel } from '../models/User';
 
 import keys from '../config/keys';
 
 const GoogleStrategy = PassportGoogleStrategy.Strategy;
 const User = mongoose.model('users');
 
-passport.serializeUser((user: UserModel, done: DoneCallback) =>
-    done(null, user.id),
-);
+passport.serializeUser((user: UserModel, done) => done(null, user.id));
 
-passport.deserializeUser((id: string, done: DoneCallback) =>
-    User.findById(id).then(user => done(null, user)),
+passport.deserializeUser((id: string, done) =>
+    User.findById(id).then(user => done(null, user!)),
 );
 
 passport.use(
     new GoogleStrategy(
         {
+            callbackURL: '/auth/google/callback',
             clientID: keys.googleClientID,
             clientSecret: keys.googleClientSecret,
-            callbackURL: '/auth/google/callback',
             proxy: true,
         },
         async (

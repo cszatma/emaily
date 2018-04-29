@@ -1,5 +1,3 @@
-// @flow
-
 import chalk from 'chalk';
 
 /**
@@ -9,27 +7,16 @@ import chalk from 'chalk';
  * @param message The message to log.
  * @param optionalParams Any additional options to be passed.
  */
-const log: LogFunction = (message: string, ...optionalParams: any[]) => {
+function logFunction(message: string, ...optionalParams: any[]) {
     if (process.env.NODE_ENV !== 'production') {
         console.log(
             message,
             optionalParams && optionalParams.length > 0 ? optionalParams : '',
         );
     }
-};
+}
 
-type Color =
-    | 'black'
-    | 'red'
-    | 'green'
-    | 'yellow'
-    | 'blue'
-    | 'magenta'
-    | 'cyan'
-    | 'white'
-    | 'gray';
-
-const colors: Color[] = [
+const colors = [
     'black',
     'red',
     'green',
@@ -47,15 +34,27 @@ colors.forEach((color: string) => {
         log(chalk[color](message, optionalParams));
 });
 
-type LogFunction = (message: string, ...optionalParams: any[]) => void;
-
-type DevUtils = {
-    log: LogFunction & { [Color]: LogFunction },
+type LogFunction = ((message: string, ...optionalParams: any[]) => void) & {
+    black: LogFunction;
+    red: LogFunction;
+    green: LogFunction;
+    yellow: LogFunction;
+    blue: LogFunction;
+    magenta: LogFunction;
+    cyan: LogFunction;
+    white: LogFunction;
+    gray: LogFunction;
 };
+
+interface DevUtils {
+    log: LogFunction;
+}
+
+const log = logFunction as LogFunction;
 
 const devUtils: DevUtils = {
     log,
 };
 
 export default devUtils;
-export type { Color, LogFunction, DevUtils };
+export { LogFunction, DevUtils };

@@ -1,9 +1,7 @@
-// @flow
-
 import sendgrid from 'sendgrid';
-import type { RecipientModel } from 'emaily-types';
 
 import keys from '../config/keys';
+import { RecipientModel } from '../models/Recipient';
 
 export interface Mailable {
     subject: string;
@@ -13,11 +11,17 @@ export interface Mailable {
 const helper = sendgrid.mail;
 
 export default class Mailer extends helper.Mail {
+    private sgApi: any;
+    // tslint:disable-next-line
+    private from_email: any;
+    private subject: string;
+    private body: any;
+    private recipients: any;
+
     constructor({ subject, recipients }: Mailable, content: string) {
         super();
 
         this.sgApi = sendgrid(keys.sendGridKey);
-        // eslint-disable-next-line
         this.from_email = new helper.Email('no-reply@emaily.com');
         this.subject = subject;
         this.body = new helper.Content('text/html', content);
@@ -28,11 +32,21 @@ export default class Mailer extends helper.Mail {
         this.addRecipients();
     }
 
-    formatAddresses(recipients: RecipientModel[]) {
+    public async send() {
+        const request = this.sgApi.emptyRequest({
+            body: this.toJSON(),
+            method: 'POST',
+            path: '/v3/mail/send',
+        });
+
+        return await this.sgApi.API(request);
+    }
+
+    private formatAddresses(recipients: RecipientModel[]) {
         return recipients.map(({ email }) => new helper.Email(email));
     }
 
-    addClickTracking() {
+    private addClickTracking() {
         const trackingSettings = new helper.TrackingSettings();
         const clickTracking = new helper.ClickTracking(true, true);
 
@@ -40,19 +54,11 @@ export default class Mailer extends helper.Mail {
         this.addTrackingSettings(trackingSettings);
     }
 
-    addRecipients() {
+    private addRecipients() {
         const personalize = new helper.Personalization();
-        this.recipients.forEach(recipient => personalize.addTo(recipient));
+        this.recipients.forEach((recipient: any) =>
+            personalize.addTo(recipient),
+        );
         this.addPersonalization(personalize);
-    }
-
-    async send() {
-        const request = this.sgApi.emptyRequest({
-            method: 'POST',
-            path: '/v3/mail/send',
-            body: this.toJSON(),
-        });
-
-        return await this.sgApi.API(request);
     }
 }
