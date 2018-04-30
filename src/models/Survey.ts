@@ -6,7 +6,7 @@ import recipientSchema, { RecipientModel } from './Recipient';
 
 export type SurveyModel = mongoose.Document & {
     body: string;
-    recipients: mongoose.Model<RecipientModel>[];
+    recipients: RecipientModel[];
     subject: string;
     title: string;
     yes: number;

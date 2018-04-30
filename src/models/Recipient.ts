@@ -1,5 +1,3 @@
-// @flow
-
 import mongoose from 'mongoose';
 
 export type RecipientModel = mongoose.Document & {

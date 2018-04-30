@@ -7,7 +7,7 @@ import chalk from 'chalk';
  * @param message The message to log.
  * @param optionalParams Any additional options to be passed.
  */
-function logFunction(message: string, ...optionalParams: any[]) {
+function log(message: string, ...optionalParams: any[]) {
     if (process.env.NODE_ENV !== 'production') {
         console.log(
             message,
@@ -50,10 +50,8 @@ interface DevUtils {
     log: LogFunction;
 }
 
-const log = logFunction as LogFunction;
-
 const devUtils: DevUtils = {
-    log,
+    log: log as LogFunction,
 };
 
 export default devUtils;

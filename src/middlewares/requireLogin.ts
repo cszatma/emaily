@@ -1,10 +1,9 @@
-import { NextFunction, Response } from 'express';
-import { SessionRequest } from '../types/routing';
+import { NextFunction, Request, Response } from 'express';
 
 /**
  * Checks that the user is authenticated before moving on to the next middleware
  */
-export default (req: SessionRequest, res: Response, next: NextFunction) => {
+export default (req: Request, res: Response, next: NextFunction) => {
     if (!req.user) {
         return res.status(401).send({ error: 'You must be logged in!' });
     }
