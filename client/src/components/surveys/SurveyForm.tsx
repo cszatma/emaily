@@ -1,21 +1,20 @@
-// @flow
-
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, InjectedFormProps } from 'redux-form';
 
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
 import formFields from './formFields';
-import type { FormValues } from './formFields';
+import { FormValues } from './formFields';
 
-type Props = {
-    handleSubmit: ((FormValues) => void) => void,
-    onSurveySubmit: () => void,
-};
+interface Props {
+    onSurveySubmit: () => void;
+}
 
-class SurveyForm extends Component<Props> {
-    renderFields() {
+class SurveyForm extends Component<
+    Props & InjectedFormProps<FormValues, Props>
+> {
+    public renderFields() {
         return formFields.map(({ label, name }) => (
             <Field
                 key={name}
@@ -27,7 +26,7 @@ class SurveyForm extends Component<Props> {
         ));
     }
 
-    render() {
+    public render() {
         return (
             <div>
                 <form
@@ -53,7 +52,7 @@ class SurveyForm extends Component<Props> {
 }
 
 function validate(values: FormValues) {
-    const errors = {};
+    const errors: { recipients?: string } = {};
     errors.recipients = validateEmails(values.recipients || '');
 
     formFields.forEach(({ name }) => {
@@ -65,7 +64,7 @@ function validate(values: FormValues) {
     return errors;
 }
 
-export default reduxForm({
+export default reduxForm<FormValues, Props>({
     validate,
     form: 'surveyForm',
     destroyOnUnmount: false,

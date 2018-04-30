@@ -1,18 +1,17 @@
-// @flow
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import type { AuthState, ReduxState } from 'redux-extensions';
+import { AuthState, ReduxState } from '../reducers';
+
 import Payments from './Payments';
 
-type Props = {
-    auth: AuthState,
-};
+interface Props {
+    auth: AuthState;
+}
 
 export class Header extends Component<Props, {}> {
-    renderContent() {
+    public renderContent() {
         switch (this.props.auth) {
             case null:
                 return;
@@ -42,7 +41,7 @@ export class Header extends Component<Props, {}> {
         }
     }
 
-    render() {
+    public render() {
         return (
             <nav>
                 <div className="nav-wrapper">
@@ -59,7 +58,7 @@ export class Header extends Component<Props, {}> {
     }
 }
 
-function mapStateToProps({ auth }: ReduxState) {
+function mapStateToProps({ auth }: ReduxState): Props {
     return { auth };
 }
 

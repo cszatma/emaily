@@ -1,26 +1,22 @@
-// @flow
-
 import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
-import type { StripeToken } from 'redux-extensions';
-import type { ThunkAction } from 'actions';
+import { StripeToken } from '../types/models';
+import { DispatchProps } from '../actions';
 
-type Props = {
-    handleToken: (token: StripeToken) => ThunkAction,
-};
+export class Payments extends Component<DispatchProps> {
+    public handleToken = (token: StripeToken) => this.props.handleToken(token);
 
-export class Payments extends Component<Props> {
-    render() {
+    public render() {
         return (
             <StripeCheckout
                 name="Emaily"
                 description="$5 for 5 email credits"
                 amount={500} // $5 USD
-                token={token => this.props.handleToken(token)}
-                stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                token={this.handleToken}
+                stripeKey={process.env.REACT_APP_STRIPE_KEY as string}
             >
                 <button className="btn">Add Credits</button>
             </StripeCheckout>

@@ -1,11 +1,9 @@
-// @flow
-
-export type FormValues = {
-    title: string,
-    subject: string,
-    body: string,
-    recipients: string,
-};
+export interface FormValues {
+    title: string;
+    subject: string;
+    body: string;
+    recipients: string;
+}
 
 const FIELDS = [
     { label: 'Survey Title', name: 'title' },
