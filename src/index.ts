@@ -1,4 +1,4 @@
-// @flow
+/* tslint:disable:ordered-imports */
 
 import mongoose from 'mongoose';
 

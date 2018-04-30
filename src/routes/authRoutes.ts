@@ -1,10 +1,7 @@
-// @flow
-
+import { Express, Request, Response } from 'express';
 import passport from 'passport';
-import type { $Application, $Response, $Request } from 'express';
-import type { session$Request } from 'emaily-types';
 
-export default (app: $Application) => {
+export default (app: Express) => {
     app.get(
         '/auth/google',
         passport.authenticate('google', {
@@ -15,17 +12,17 @@ export default (app: $Application) => {
     app.get(
         '/auth/google/callback',
         passport.authenticate('google'),
-        (req: $Request, res: $Response) => {
+        (req: Request, res: Response) => {
             res.redirect('/surveys');
         },
     );
 
-    app.get('/api/logout', (req: session$Request, res: $Response) => {
+    app.get('/api/logout', (req: Request, res: Response) => {
         req.logout();
         res.redirect('/');
     });
 
-    app.get('/api/current_user', (req: session$Request, res: $Response) => {
+    app.get('/api/current_user', (req: Request, res: Response) => {
         res.send(req.user);
     });
 };

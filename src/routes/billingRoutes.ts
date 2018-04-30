@@ -1,19 +1,17 @@
-// @flow
-
-import stripeApi from 'stripe';
-import type { $Application, $Response, NextFunction } from 'express';
-import type { billing$Request } from 'emaily-types';
+import { Express, NextFunction, Request, Response } from 'express';
+import Stripe from 'stripe';
 
 import keys from '../config/keys';
 import requireLogin from '../middlewares/requireLogin';
+import { UserModel } from '../models/User';
 
-const stripe = stripeApi(keys.stripeSecretKey);
+const stripe = new Stripe(keys.stripeSecretKey);
 
-export default (app: $Application) => {
+export default (app: Express) => {
     app.post(
         '/api/stripe',
         requireLogin,
-        async (req: billing$Request, res: $Response, next: NextFunction) => {
+        async (req: Request, res: Response, next: NextFunction) => {
             // Verify that a body was passed and that it's and object
             if (!req.body || typeof req.body !== 'object') {
                 res.status(400).send({
@@ -32,10 +30,12 @@ export default (app: $Application) => {
                 source: req.body.id,
             });
 
-            req.user.credits += 5;
-            const user = await req.user.save();
+            const user = req.user as UserModel;
 
-            res.send(user);
+            user.credits += 5;
+            const updatedUser = await user.save();
+
+            res.send(updatedUser);
         },
     );
 };

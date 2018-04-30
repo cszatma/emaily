@@ -1,18 +1,26 @@
-// @flow
+/* tslint:disable:object-literal-sort-keys */
 
+import { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
-import type { $Application, $Response } from 'express';
-import type { survey$Request } from 'emaily-types';
 
-import requireLogin from '../middlewares/requireLogin';
 import requireCredits from '../middlewares/requireCredits';
-import Mailer from '../services/Mailer';
+import requireLogin from '../middlewares/requireLogin';
+import { SurveyModel } from '../models/Survey';
+import { UserModel } from '../models/User';
 import surveyTemplate from '../services/email-templates/surveyTemplate';
+import Mailer from '../services/Mailer';
 
-const Survey = mongoose.model('surveys');
+interface Body {
+    title: string;
+    subject: string;
+    body: string;
+    recipients: string;
+}
 
-export default (app: $Application) => {
-    app.get('/api/surveys/thanks', (req, res: $Response) => {
+const Survey: mongoose.Model<SurveyModel> = mongoose.model('surveys');
+
+export default (app: Express) => {
+    app.get('/api/surveys/thanks', (req: Request, res: Response) => {
         res.send('Thanks for voting!');
     });
 
@@ -20,9 +28,11 @@ export default (app: $Application) => {
         '/api/surveys',
         requireLogin,
         requireCredits,
-        async (req: survey$Request, res: $Response) => {
+        async (req: Request, res: Response) => {
             // recipients is a string of comma separated emails
-            const { title, subject, body, recipients } = req.body;
+            const { title, subject, body, recipients } = req.body as Body;
+            const user = req.user as UserModel;
+
             const survey = new Survey({
                 title,
                 subject,
@@ -30,7 +40,7 @@ export default (app: $Application) => {
                 recipients: recipients
                     .split(',')
                     .map(email => ({ email: email.trim() })),
-                _user: req.user.id,
+                _user: user.id,
                 dateSend: Date.now(),
             });
 
@@ -39,10 +49,10 @@ export default (app: $Application) => {
             try {
                 await mailer.send();
                 await survey.save();
-                req.user.credits -= 1;
-                const user = await req.user.save();
+                user.credits -= 1;
+                const updatedUser = await user.save();
 
-                res.send(user);
+                res.send(updatedUser);
             } catch (error) {
                 res.status(422).send(error);
             }

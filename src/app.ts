@@ -1,10 +1,7 @@
-// @flow
-
-import passport from 'passport/lib/index';
 import bodyParser from 'body-parser';
-import express from 'express';
 import cookieSession from 'cookie-session';
-import type { $Request, $Response } from 'express';
+import express, { Request, Response } from 'express';
+import passport from 'passport';
 
 import keys from './config/keys';
 import authRoutes from './routes/authRoutes';
@@ -17,8 +14,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
     cookieSession({
-        maxAge: 2592000000, // 30 * 24 * 60 * 60 * 1000 = 30 days
         keys: [keys.cookieKey],
+        maxAge: 2592000000, // 30 * 24 * 60 * 60 * 1000 = 30 days
+        name: 'session',
     }),
 );
 
@@ -36,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'client')));
 
     // Express will serve up the index.html file if it doesn't recognize the route
-    app.get('*', (req: $Request, res: $Response) => {
+    app.get('*', (req: Request, res: Response) => {
         res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
     });
 }
