@@ -10,6 +10,15 @@ import {
 import { StripeToken } from '../types/models';
 import { FormValues } from '../components/surveys/formFields';
 
+export interface DispatchProps {
+    fetchUser: () => ThunkAction<FetchUserAction>;
+    handleToken: (token: StripeToken) => ThunkAction<FetchUserAction>;
+    submitSurvey: (
+        values: FormValues,
+        history: History,
+    ) => ThunkAction<FetchUserAction>;
+}
+
 export function fetchUser(): ThunkAction<FetchUserAction> {
     return async (
         dispatch: Dispatch<FetchUserAction>,
@@ -40,3 +49,6 @@ export function submitSurvey(
         return dispatch(fetchUserAction(res.data));
     };
 }
+
+export { FetchUserAction, ThunkAction };
+export { Action } from './actionTypes';
