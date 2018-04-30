@@ -1,8 +1,8 @@
-// @flow
+import { Optional } from '../types/aliases';
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-export default function validateEmails(emails: string) {
+export default function validateEmails(emails: string): Optional<string> {
     const invalidEmails = emails
         .split(',')
         .map(email => email.trim())
@@ -12,4 +12,6 @@ export default function validateEmails(emails: string) {
         // $FlowFixMe
         return `These emails are invalid: ${invalidEmails}`;
     }
+
+    return undefined;
 }
