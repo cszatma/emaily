@@ -10,6 +10,7 @@ const user = {
 
 describe('authReducer tests', () => {
     it('should return the initial state', () => {
+        // @ts-ignore
         expect(authReducer(undefined, {})).toEqual(initialState);
     });
 

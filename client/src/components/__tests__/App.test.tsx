@@ -1,15 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import reduxThunk from 'redux-thunk';
 
 import ConnectedApp, { App } from '../App';
 
 describe('App tests', () => {
-    let wrapper;
+    let wrapper: ShallowWrapper;
 
     beforeEach(() => {
         const mockFetchUser = jest.fn();
+        // @ts-ignore
         wrapper = shallow(<App fetchUser={mockFetchUser} />);
     });
 
@@ -20,11 +21,12 @@ describe('App tests', () => {
 
 describe('ConnectedApp tests', () => {
     const mockStore = configureStore([reduxThunk]);
-    let wrapper;
+    let wrapper: ShallowWrapper;
     let store;
 
     beforeEach(() => {
         store = mockStore();
+        // @ts-ignore
         wrapper = shallow(<ConnectedApp store={store} />);
     });
 

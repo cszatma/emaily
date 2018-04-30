@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import configureStore from 'redux-mock-store';
 
 import ConnectedHeader, { Header } from '../Header';
 
 describe('Header tests', () => {
-    let wrapper;
+    let wrapper: ShallowWrapper;
 
     beforeEach(() => {
         wrapper = shallow(<Header auth={false} />);
@@ -19,11 +19,12 @@ describe('Header tests', () => {
 describe('ConnectedHeader tests', () => {
     const mockStore = configureStore();
     const initialState = { auth: false };
-    let wrapper;
+    let wrapper: ShallowWrapper;
     let store;
 
     beforeEach(() => {
         store = mockStore(initialState);
+        // @ts-ignore
         wrapper = shallow(<ConnectedHeader store={store} />);
     });
 
