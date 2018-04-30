@@ -8,7 +8,7 @@ module.exports = {
     transform: {
         '^.+\\.(ts|tsx)$': './node_modules/ts-jest/preprocessor.js',
     },
-    testMatch: ['**/tests/**/*.test.(ts|js)'],
+    testMatch: ['**/__tests__/**/*.test.(ts|js)'],
     testEnvironment: 'node',
     testPathIgnorePatterns: ['<rootDir>/client/'],
 };

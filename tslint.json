@@ -9,7 +9,9 @@
   },
   "rules": {
     "prettier": true,
+    "array-type": false,
     "no-console": false,
+    "no-var-requires": false,
     "interface-name": [true, "never-prefix"]
   },
   "rulesDirectory": ["tslint-plugin-prettier"]
