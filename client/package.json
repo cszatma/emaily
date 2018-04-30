@@ -33,6 +33,7 @@
     "@types/react-redux": "^5.0.19",
     "@types/react-router-dom": "^4.2.6",
     "@types/redux-form": "^7.2.4",
+    "@types/redux-mock-store": "^0.0.13",
     "axios-mock-adapter": "^1.15.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
