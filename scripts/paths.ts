@@ -31,6 +31,7 @@ const paths = {
     appBuildClient: resolveApp('build/client'),
     appClient: clientDirectory,
     appClientBuild: resolveClient('build'),
+    appIndexTs: resolveApp('src/index'),
     appPackageJson: resolveApp('package.json'),
     appSrc: resolveApp('src'),
     appTsBuildConfig: resolveApp('tsconfig.build.json'),
