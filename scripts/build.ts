@@ -7,14 +7,15 @@ import { spawnSync } from 'child_process';
 import fs from 'fs-extra';
 
 import paths from './paths';
+import { checkChildStatus } from './utils';
 
 const args = process.argv.slice(2);
 
 const buildServer = args.includes('server');
 const buildClient = args.includes('client');
 
-// If selection is specified build both
-const buildAll = (!buildServer && !buildClient) || (buildServer && buildClient);
+// If no selection is specified build both
+const buildAll = buildServer === buildClient;
 
 const stdio = args.includes('--no-output') ? 'ignore' : 'inherit';
 
@@ -53,7 +54,7 @@ if (buildClient || buildAll) {
         stdio,
     });
 
-    checkChildStatus(result.status, 'react-scripts build');
+    checkChildStatus(result.status, 'react-scripts-ts build');
 
     console.log(chalk.green('Successfully built the client!\n'));
 
@@ -70,10 +71,3 @@ if (buildClient || buildAll) {
 
 console.log(chalk.green('Build complete!'));
 console.log(`Application as available at ${chalk.cyan(paths.appBuild)}\n`);
-
-function checkChildStatus(status: number, command: string) {
-    if (status !== 0) {
-        console.log(chalk.red(`${command} exited with code ${status}`));
-        return process.exit(1);
-    }
-}
