@@ -1,10 +1,11 @@
 import Agent from 'jest-supertest-cookie-fix';
 import passport from 'passport';
 import {
-    mockUser,
     MockStrategy,
+    mockUser,
     setupSerializeAndDeserialize,
 } from 'passport-mock-strategy';
+import { SuperTest, Test } from 'supertest';
 
 import app from '../app';
 
@@ -18,7 +19,7 @@ app.get('/auth/mock', passport.authenticate('mock'), (req, res) => {
 });
 
 describe('Express app tests', () => {
-    let agent;
+    let agent: SuperTest<Test>;
 
     beforeEach(() => {
         agent = Agent(app);
