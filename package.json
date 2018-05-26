@@ -37,7 +37,7 @@
     "lint-staged": "^7.0.4",
     "localtunnel": "^1.9.0",
     "mockgoose": "^7.3.5",
-    "nodemon": "^1.17.2",
+    "nodemon": "^1.17.5",
     "npm-run-all": "^4.1.2",
     "passport-mock-strategy": "^1.1.1",
     "prettier": "^1.11.1",
