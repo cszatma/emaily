@@ -6,10 +6,12 @@ import { RouteComponentProps } from 'react-router';
 
 import formFields from './formFields';
 import { FormValues } from './formFields';
-import * as actions from '../../actions';
-import { ThunkAction, FetchUserAction } from '../../actions';
-import { StripeToken } from '../../types/models';
-import { ReduxState } from '../../reducers';
+import {
+    submitSurvey as submitSurveyAction,
+    ThunkAction,
+    FetchUserAction,
+} from '@/actions';
+import { ReduxState } from '@/reducers';
 
 interface StateProps {
     formValues: FormValues;
@@ -18,8 +20,6 @@ interface StateProps {
 interface Props extends RouteComponentProps<any>, StateProps {
     onCancel: () => void;
     history: History;
-    fetchUser: () => ThunkAction<FetchUserAction>;
-    handleToken: (token: StripeToken) => ThunkAction<FetchUserAction>;
     submitSurvey: (
         values: FormValues,
         history: History,
@@ -80,4 +80,6 @@ function mapStateToProps(state: ReduxState): StateProps {
     return { formValues };
 }
 
-export default connect(mapStateToProps, actions)(withRouter(SurveyFormReview));
+export default connect(mapStateToProps, { submitSurvey: submitSurveyAction })(
+    withRouter(SurveyFormReview),
+);
