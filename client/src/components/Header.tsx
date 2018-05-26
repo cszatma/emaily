@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { AuthState, ReduxState } from '../reducers';
+import { AuthState, ReduxState } from '@/reducers';
 
 import Payments from './Payments';
 

@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
 
-import * as actions from '../actions';
-import { StripeToken } from '../types/models';
-import { DispatchProps } from '../actions';
+import { handleToken } from '@/actions';
+import { StripeToken } from 'models';
+import { FetchUserAction, ThunkAction } from '@actions/actionTypes';
 
-export class Payments extends Component<DispatchProps> {
+interface Props {
+    handleToken: (token: StripeToken) => ThunkAction<FetchUserAction>;
+}
+
+export class Payments extends Component<Props> {
     public handleToken = (token: StripeToken) => this.props.handleToken(token);
 
     public render() {
@@ -24,4 +28,4 @@ export class Payments extends Component<DispatchProps> {
     }
 }
 
-export default connect(null, actions)(Payments);
+export default connect(null, { handleToken })(Payments);

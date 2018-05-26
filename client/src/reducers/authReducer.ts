@@ -1,7 +1,6 @@
-import { FETCH_USER, AnyAction } from '../actions/actionTypes';
-
-import { User } from '../types/models';
-import { Nullable } from '../types/aliases';
+import { FETCH_USER, AnyAction } from '@actions/actionTypes';
+import { User } from 'models';
+import { Nullable } from 'aliases';
 
 export type AuthState = Nullable<User> | false;
 

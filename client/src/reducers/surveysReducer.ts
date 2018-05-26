@@ -1,6 +1,5 @@
-import { FETCH_SURVEYS, AnyAction } from '../actions/actionTypes';
-
-import { Survey } from '../types/models';
+import { FETCH_SURVEYS, AnyAction } from '@actions/actionTypes';
+import { Survey } from 'models';
 
 export type SurveyState = Survey[];
 

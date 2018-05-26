@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { reduxForm, Field, InjectedFormProps } from 'redux-form';
 
 import SurveyField from './SurveyField';
-import validateEmails from '../../utils/validateEmails';
+import validateEmails from '@utils/validateEmails';
 import formFields from './formFields';
 import { FormValues } from './formFields';
 

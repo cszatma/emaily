@@ -1,4 +1,4 @@
-import { Optional } from '../types/aliases';
+import { Optional } from 'aliases';
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 

@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import '../styles/App.scss';
+import '@styles/App.scss';
 import Header from './Header';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
 import SurveyNew from './surveys/SurveyNew';
-import * as actions from '../actions';
-import { DispatchProps } from '../actions';
+import { fetchUser } from '@/actions';
+import { FetchUserAction, ThunkAction } from '@actions/actionTypes';
 
-export class App extends Component<DispatchProps> {
+interface Props {
+    fetchUser: () => ThunkAction<FetchUserAction>;
+}
+
+export class App extends Component<Props> {
     public componentDidMount() {
         this.props.fetchUser();
     }
@@ -29,4 +33,4 @@ export class App extends Component<DispatchProps> {
     }
 }
 
-export default connect(null, actions)(App);
+export default connect(null, { fetchUser })(App);

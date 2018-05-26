@@ -1,4 +1,4 @@
-import { User, Survey } from '../types/models';
+import { User, Survey } from 'models';
 
 export interface Action {
     readonly type: string;
