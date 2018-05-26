@@ -15,3 +15,20 @@ export interface StripeToken {
     readonly type: string;
     readonly used: boolean;
 }
+
+export interface Survey {
+    body: string;
+    recipients?: Recipient[];
+    subject: string;
+    title: string;
+    yes: number;
+    no: number;
+    _user: string;
+    dateSent: Date;
+    lastResponded: Date;
+}
+
+export interface Recipient {
+    email: string;
+    responded: boolean;
+}
