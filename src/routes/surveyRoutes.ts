@@ -33,6 +33,18 @@ interface SurveyResponse {
 const Survey: mongoose.Model<SurveyModel> = mongoose.model('surveys');
 
 export default (app: Express) => {
+    app.get(
+        '/api/surveys',
+        requireLogin,
+        async (req: Request, res: Response) => {
+            const surveys = await Survey.find({ _user: req.user!.id }).select({
+                recipients: 0,
+            });
+
+            res.send(surveys);
+        },
+    );
+
     app.get('/api/surveys/:surveyId/:choice', (req: Request, res: Response) => {
         res.send('Thanks for voting!');
     });
