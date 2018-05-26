@@ -9,8 +9,8 @@ import {
     fetchSurveysAction,
     FetchSurveysAction,
 } from './actionTypes';
-import { StripeToken } from '../types/models';
-import { FormValues } from '../components/surveys/formFields';
+import { StripeToken } from 'models';
+import { FormValues } from '@components/surveys/formFields';
 
 export interface DispatchProps {
     fetchUser: () => ThunkAction<FetchUserAction>;
@@ -19,6 +19,7 @@ export interface DispatchProps {
         values: FormValues,
         history: History,
     ) => ThunkAction<FetchUserAction>;
+    fetchSurveys: () => ThunkAction<FetchSurveysAction>;
 }
 
 export function fetchUser(): ThunkAction<FetchUserAction> {

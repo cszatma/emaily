@@ -16,4 +16,4 @@ export default combineReducers({
     surveys: surveysReducer,
 });
 
-export { AuthState };
+export { AuthState, SurveyState };

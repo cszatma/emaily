@@ -17,6 +17,7 @@ export interface StripeToken {
 }
 
 export interface Survey {
+    _id: string;
     body: string;
     recipients?: Recipient[];
     subject: string;
