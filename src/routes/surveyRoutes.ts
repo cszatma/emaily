@@ -1,7 +1,9 @@
-/* tslint:disable:object-literal-sort-keys */
-
 import { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
+import Path from 'path-parser';
+import { URL } from 'url';
+import { Optional } from 'aliases';
+import _ from 'lodash';
 
 import requireCredits from '../middlewares/requireCredits';
 import requireLogin from '../middlewares/requireLogin';
@@ -17,11 +19,59 @@ interface Body {
     recipients: string;
 }
 
+interface MailEvent {
+    email: string;
+    url: string;
+}
+
+interface SurveyResponse {
+    email: string;
+    surveyId: string;
+    choice: string;
+}
+
 const Survey: mongoose.Model<SurveyModel> = mongoose.model('surveys');
 
 export default (app: Express) => {
-    app.get('/api/surveys/thanks', (req: Request, res: Response) => {
+    app.get('/api/surveys/:surveyId/:choice', (req: Request, res: Response) => {
         res.send('Thanks for voting!');
+    });
+
+    app.post('/api/surveys/webhooks', (req: Request, res: Response) => {
+        const parser = new Path('/api/surveys/:surveyId/:choice');
+
+        _.chain(req.body as MailEvent[])
+            .map(({ email, url }: MailEvent): Optional<SurveyResponse> => {
+                const match: any = parser.test(new URL(url).pathname);
+
+                if (match) {
+                    return {
+                        email,
+                        surveyId: match.surveyId,
+                        choice: match.choice,
+                    };
+                }
+            })
+            .compact()
+            .uniqBy('email')
+            .uniqBy('surveyId')
+            .each(({ surveyId, email, choice }: SurveyResponse) =>
+                Survey.updateOne(
+                    {
+                        _id: surveyId,
+                        recipients: {
+                            $elemMatch: { email, responded: false },
+                        },
+                    },
+                    {
+                        $inc: { [choice]: 1 },
+                        $set: { 'recipients.$.responded': true },
+                        lastResponded: new Date(),
+                    },
+                ).exec(),
+            );
+
+        res.send({});
     });
 
     app.post(
