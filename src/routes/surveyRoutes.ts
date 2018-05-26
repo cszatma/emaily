@@ -101,9 +101,10 @@ export default (app: Express) => {
                 body,
                 recipients: recipients
                     .split(',')
-                    .map(email => ({ email: email.trim() })),
+                    .map(email => ({ email: email.trim() }))
+                    .filter(recipient => !!recipient.email),
                 _user: user.id,
-                dateSend: Date.now(),
+                dateSent: new Date(),
             });
 
             const mailer = new Mailer(survey, surveyTemplate(survey));
