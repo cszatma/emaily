@@ -3,9 +3,11 @@ import { History } from 'history';
 
 import {
     Dispatch,
+    ThunkAction,
     fetchUserAction,
     FetchUserAction,
-    ThunkAction,
+    fetchSurveysAction,
+    FetchSurveysAction,
 } from './actionTypes';
 import { StripeToken } from '../types/models';
 import { FormValues } from '../components/surveys/formFields';
@@ -47,6 +49,15 @@ export function submitSurvey(
         const res = await axios.post('/api/surveys', values);
         history.push('/surveys');
         return dispatch(fetchUserAction(res.data));
+    };
+}
+
+export function fetchSurveys(): ThunkAction<FetchSurveysAction> {
+    return async (
+        dispatch: Dispatch<FetchSurveysAction>,
+    ): Promise<FetchSurveysAction> => {
+        const res = await axios.get('/api/surveys');
+        return dispatch(fetchSurveysAction(res.data));
     };
 }
 
