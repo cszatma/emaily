@@ -32,6 +32,7 @@
     "jest": "^22.4.3",
     "jest-supertest-cookie-fix": "^1.0.0",
     "lint-staged": "^7.0.4",
+    "localtunnel": "^1.9.0",
     "mockgoose": "^7.3.5",
     "nodemon": "^1.17.2",
     "npm-run-all": "^4.1.2",
